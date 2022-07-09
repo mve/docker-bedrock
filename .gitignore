@@ -1,0 +1,9 @@
+.idea
+.DS_Store
+
+./bedrock/.env
+./bedrock/vendor
+./bedrock/web/app/themes/sage-theme
+
+./sage-theme/vendor
+./sage-theme/node_modules
