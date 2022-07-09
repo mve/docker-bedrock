@@ -5,7 +5,9 @@ services:
     depends_on:
       - db
       - memcached
-    image: docker.io/bitpoke/wordpress-runtime:bedrock-php-8.1.7
+    build:
+        context: .
+        dockerfile: Dockerfile
     volumes:
       - ./bedrock:/app
       - ./sage-theme:/sage-theme
