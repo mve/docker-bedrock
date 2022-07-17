@@ -4,39 +4,47 @@ services:
   wordpress:
     depends_on:
       - db
-      - memcached
     build:
-        context: .
-        dockerfile: Dockerfile
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./bedrock:/app
       - ./sage-theme:/sage-theme
+      - ./default.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "8080:8080"
+      - "8080:80"
     restart: always
-    environment:
-      DB_HOST: db:3306
-      DB_USER: wordpress
-      DB_PASSWORD: not-so-secure
-      DB_NAME: wordpress
-      MEMCACHED_HOST: memcached:11211
-      WP_HOME: http://localhost:8080
-      WP_SITEURL: http://localhost:8080/wp
-      WP_ENV: development
+  #    environment:
+  #      DB_HOST: db:3306
+  #      DB_USER: wordpress
+  #      DB_PASSWORD: not-so-secure
+  #      DB_NAME: wordpress
+  #      MEMCACHED_HOST: memcached:11211
+  #      WP_HOME: http://localhost:8080
+  #      WP_SITEURL: http://localhost:8080/wp
+  #      WP_ENV: development
 
   db:
-    image: percona:5.7
+    image: mariadb:10.7.4
     volumes:
       - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: not-so-secure
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: not-so-secure
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
 
-  memcached:
-    image: memcached:1.6
+#  nginx:
+#    image: nginx:1.23
+#    depends_on:
+#      - wordpress
+#    ports:
+#      - "80:80"
+#    volumes:
+#      - ./bedrock:/app
+#      - ./default.conf:/etc/nginx/conf.d/default.conf
+#    restart: always
 
 volumes:
   db_data: { }
