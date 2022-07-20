@@ -8,32 +8,32 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./bedrock:/app
+      - ./bedrock:/var/www/html
       - ./sage-theme:/sage-theme
-      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./default:/etc/nginx/sites-available/default
     ports:
       - "8080:80"
     restart: always
-  #    environment:
-  #      DB_HOST: db:3306
-  #      DB_USER: wordpress
-  #      DB_PASSWORD: not-so-secure
-  #      DB_NAME: wordpress
+#    environment:
+#      DB_HOST: db
+#      DB_USER: aabbccdd
+#      DB_PASSWORD: aabbccdd
+#      DB_NAME: aabbccdd
   #      MEMCACHED_HOST: memcached:11211
   #      WP_HOME: http://localhost:8080
   #      WP_SITEURL: http://localhost:8080/wp
   #      WP_ENV: development
 
   db:
-    image: mariadb:10.7.4
+    image: mariadb:latest
     volumes:
       - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: aabbccdd
+      MYSQL_DATABASE: aabbccdd
+      MYSQL_USER: aabbccdd
+      MYSQL_PASSWORD: aabbccdd
 
 #  nginx:
 #    image: nginx:1.23
