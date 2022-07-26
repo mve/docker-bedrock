@@ -10,19 +10,10 @@ services:
     volumes:
       - ./bedrock:/var/www/html
       - ./sage-theme:/sage-theme
-      - ./default:/etc/nginx/sites-available/default
+      - ./nginx/default:/etc/nginx/sites-available/default
     ports:
       - "8080:80"
     restart: always
-#    environment:
-#      DB_HOST: db
-#      DB_USER: aabbccdd
-#      DB_PASSWORD: aabbccdd
-#      DB_NAME: aabbccdd
-  #      MEMCACHED_HOST: memcached:11211
-  #      WP_HOME: http://localhost:8080
-  #      WP_SITEURL: http://localhost:8080/wp
-  #      WP_ENV: development
 
   db:
     image: mariadb:latest
@@ -30,10 +21,10 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: aabbccdd
-      MYSQL_DATABASE: aabbccdd
-      MYSQL_USER: aabbccdd
-      MYSQL_PASSWORD: aabbccdd
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: admin
+      MARIADB_PASSWORD: password
 
 #  nginx:
 #    image: nginx:1.23
